@@ -62,9 +62,9 @@ extern "C" {
         mac: *mut u8,
     ) -> u32;
 }
-pub type __m128i = [::std::os::raw::c_longlong; 2usize];
+pub type __m128i = [::core::ffi::c_longlong; 2usize];
 pub type Lib_IntVector_Intrinsics_vec128 = __m128i;
-pub type __m256i = [::std::os::raw::c_longlong; 4usize];
+pub type __m256i = [::core::ffi::c_longlong; 4usize];
 pub type Lib_IntVector_Intrinsics_vec256 = __m256i;
 extern "C" {
     #[doc = "Encrypt a message `m` with key `k`.\n\nThe arguments `k`, `n`, `aadlen`, and `aad` are same in encryption/decryption.\nNote: Encryption and decryption can be executed in-place, i.e., `m` and `cipher` can point to the same memory.\n\n@param k Pointer to 32 bytes of memory where the AEAD key is read from.\n@param n Pointer to 12 bytes of memory where the AEAD nonce is read from.\n@param aadlen Length of the associated data.\n@param aad Pointer to `aadlen` bytes of memory where the associated data is read from.\n\n@param mlen Length of the message.\n@param m Pointer to `mlen` bytes of memory where the message is read from.\n@param cipher Pointer to `mlen` bytes of memory where the ciphertext is written to.\n@param mac Pointer to 16 bytes of memory where the mac is written to."]

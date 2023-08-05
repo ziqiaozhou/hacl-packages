@@ -10,6 +10,10 @@ fn create_bindings(include_path: &Path, home_dir: &Path) {
         format!("-I{}", include_path.join("vale").display()),
     ];
 
+    if std::env::var("TARGET").unwrap() == "target" {
+        // customized target via a file is not well supported. Hard-code the target.
+        std::env::set_var("TARGET", "x86_64-unknown-linux-gnu");
+    }
     let bindings = bindgen::Builder::default()
         // Header to wrap HACL/Evercrypt headers
         .header("wrapper.h")
@@ -52,6 +56,8 @@ fn create_bindings(include_path: &Path, home_dir: &Path) {
         .blocklist_function("Hacl_Blake2b_32_blake2b_update_last")
         .blocklist_function("Hacl_Blake2b_256_blake2b_update_multi")
         .blocklist_function("Hacl_Blake2b_256_blake2b_update_last")
+        // Use core instead of std
+        .use_core()
         // Disable tests to avoid warnings and keep it portable
         .layout_tests(false)
         // Generate bindings
@@ -90,6 +96,7 @@ fn build_hacl_c(path: &Path, cross_target: Option<String>) {
             "i686-unknown-linux-gnu" => vec!["-DCMAKE_C_FLAGS=-m32", "-D", "CMAKE_CXX_FLAGS=-m32"],
             "i686-pc-windows-msvc" => vec!["-DCMAKE_C_FLAGS=-m32", "-D", "CMAKE_CXX_FLAGS=-m32"],
             _ => vec![],
+            //vec!["-DCMAKE_C_FLAGS=-m64", "-D", "CMAKE_CXX_FLAGS=-m64"],
         })
         .unwrap_or_default();
     if !toolchain_file.is_empty() {

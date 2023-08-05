@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-
+#![no_std]
 // Include bindgen output
 // The bindings are freshly generated on Linux and MacOS builds.
 // For Windows the prebuilt bindings.rs from the repository are used.
@@ -14,5 +14,6 @@ pub struct EverCrypt_AEAD_state_s {
 
 /// Free a raw C pointer.
 pub unsafe fn free(p: *mut u64) {
-    libc::free(p as *mut libc::c_void);
+    //libc::free(p as *mut core::ffi::c_void);
 }
+
