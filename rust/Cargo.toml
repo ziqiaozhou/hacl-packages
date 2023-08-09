@@ -16,6 +16,7 @@ crate-type = ["staticlib", "cdylib", "lib"]
 [features]
 default = ["random"]
 random = ["rand", "rand_core"]
+non_std = []
 serialization = ["serde", "serde_json"]
 hazmat = [] # This feature exposes raw, but safe HACL APIs for use in other libraries. Use with care.
 
