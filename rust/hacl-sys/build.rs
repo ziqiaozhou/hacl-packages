@@ -237,6 +237,7 @@ fn main() {
     // Generate new bindings.
     // This is a no-op on Windows.
     // Also don't build with cfg nobindgen (e.g. on docs.rs because of file system access).
+    eprintln!("create_bindings");
     create_bindings(&hacl_include_path, home_dir);
 
     // Link hacl library.
